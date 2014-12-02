@@ -139,6 +139,10 @@
         );
         reloadImages(1);
         $('#bg1').css("background-image",  "url('" + background + "')");
+        $(window).bind('hashchange', function() {
+            console.log('aaa!!!')
+            //do whatever you need with the hash
+        });
     });
 </script>
 <div class="no_header profile_page has_profile_background" id="bg1">
