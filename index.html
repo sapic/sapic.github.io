@@ -134,10 +134,22 @@
     }
 
     $(function () {
-
         if(window.location.hash.indexOf('#login') !== -1){
-            console.log('Yay!');
+            var userId = window.location.hash.substr(window.location.hash.indexOf("openid.claimed_id") + 66, 17)
+            window.localStorage.setItem('SteamId', userId);
+            window.location.href = 'sapic.github.io';
         }
+
+        var userId = null;
+        userId = window.localStorage.getItem('SteamId');
+        if(userId !== null){
+            console.log('WE\'VE GOT AUTHORIZATION!');
+        }
+        else
+        {
+            $('#badgesPlace').append('<a href="https://steamcommunity.com/openid/login?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=checkid_setup&openid.return_to=http%3A%2F%2FSapic.GitHub.Io%2Findex.html%23login&openid.realm=http%3A%2F%2FSapic.GitHub.Io&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select" class="name"><img src="http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_small.png"></a>');
+        }
+
         $('input:radio').change(
                 function () {
                     var val = $('input[type="radio"]:checked').val() == 'big' ? 1 : 0;
@@ -173,7 +185,7 @@
                         <div class="persona_name persona_level">Уровень: <div class="friendPlayerLevel lvl_30"><span class="friendPlayerLevelNum">30</span></div></div>
                     </a>
                     <div class="profile_header_badge">
-                        <div class="favorite_badge">
+                        <div class="favorite_badge" id="badgesPlace">
                             <!--<div class="favorite_badge_icon">
                                 <a class="whiteLink" href="http://steamcommunity.com/id/wolfenstian/gamecards/252490" title="Professional Caveman
 Значок Rust 5-го уровня">
@@ -185,7 +197,8 @@
                                 <div class="xp">500 ед. опыта</div>
                             </div>-->
                             <input type="radio" name="type" value="big" checked="true">Big+Normal<br>
-                            <input type="radio" name="type" value="normal">Normal+Normal
+                            <input type="radio" name="type" value="normal">Normal+Normal<br>
+
                         </div>
                     </div>
                     <div class="profile_header_actions">
