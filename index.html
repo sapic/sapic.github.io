@@ -140,8 +140,8 @@
         reloadImages(1);
         $('#bg1').css("background-image",  "url('" + background + "')");
         $(window).bind('hashchange', function() {
-            console.log('aaa!!!')
-            //do whatever you need with the hash
+            var val = $('input[type="radio"]:checked').val() == 'big' ? 1 : 0;
+            reloadImages(val);
         });
     });
 </script>
