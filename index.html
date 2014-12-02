@@ -14,12 +14,6 @@
 <body>
 <script>
     var background = 'http://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/212200/72140546ab66eba298c1959b9fd4324cf4c0635f.jpg';
-    if(window.location.hash){
-        background = window.location.hash.slice(1);
-        if(background.indexOf('http') == -1){
-            background = "http://" + background;
-        }
-    }
     function crop(image, x, y, width, height, fn){
         image = image || 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/41730/0f690ec6ad7ed19d9dea6f79188fd59cdb82fb21.jpg';
         x = x || 0;
@@ -60,6 +54,17 @@
 
     }
     function reloadImages(type){
+        if(window.location.hash){
+            background = window.location.hash.slice(1);
+            if(background.indexOf('http') == -1){
+                background = "http://" + background;
+            }
+        }
+        else
+        {
+            background = 'http://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/212200/72140546ab66eba298c1959b9fd4324cf4c0635f.jpg';
+        }
+        $('#bg1').css("background-image",  "url('" + background + "')");
         getImageBase64(background, function(lImage){
             crop(lImage, 508, 271, 506, 284 + type * 222, function(data){
                 var img = new Image();
@@ -68,21 +73,21 @@
                     $('#big1').attr('src', data);
                 };
             });
-            crop(lImage, 1022, 271, 100, 83, function(data){
+            crop(lImage, 1024, 271, 100, 83, function(data){
                 var img = new Image();
                 img.src = data;
                 img.onload = function(){
                     $('#r11').attr('src', data);
                 };
             });
-            crop(lImage, 1022, 364, 100, 83, function(data){
+            crop(lImage, 1024, 364, 100, 83, function(data){
                 var img = new Image();
                 img.src = data;
                 img.onload = function(){
                     $('#r12').attr('src', data);
                 };
             });
-            crop(lImage, 1022, 457, 100, 83, function(data){
+            crop(lImage, 1024, 457, 100, 83, function(data){
                 var img = new Image();
                 img.src = data;
                 img.onload = function(){
@@ -97,21 +102,21 @@
                     $('#big2').attr('src', data);
                 };
             });
-            crop(lImage, 1022, 656 + type * 222, 100, 83, function(data){
+            crop(lImage, 1024, 656 + type * 222, 100, 83, function(data){
                 var img = new Image();
                 img.src = data;
                 img.onload = function(){
                     $('#r21').attr('src', data);
                 };
             });
-            crop(lImage, 1022, 749 + type * 222, 100, 83, function(data){
+            crop(lImage, 1024, 749 + type * 222, 100, 83, function(data){
                 var img = new Image();
                 img.src = data;
                 img.onload = function(){
                     $('#r22').attr('src', data);
                 };
             });
-            crop(lImage, 1022, 842 + type * 222, 100, 83, function(data){
+            crop(lImage, 1024, 842 + type * 222, 100, 83, function(data){
                 var img = new Image();
                 img.src = data;
                 img.onload = function(){
@@ -138,10 +143,12 @@
                 }
         );
         reloadImages(1);
-        $('#bg1').css("background-image",  "url('" + background + "')");
+        //$('#bg1').css("background-image",  "url('" + background + "')");
         $(window).bind('hashchange', function() {
+            console.log('hash!!')
             var val = $('input[type="radio"]:checked').val() == 'big' ? 1 : 0;
             reloadImages(val);
+            //do whatever you need with the hash
         });
     });
 </script>
