@@ -46,6 +46,7 @@
         var ctx = canvas.getContext("2d");
         var img = new Image();
         img.crossOrigin = 'anonymous';
+        $('#bgImgEl').attr('src', null);
 
         img.onload = function(){
             canvas.width = img.width;
@@ -87,16 +88,16 @@
                 $('#r13').attr('src', data);
             });
             //SECOND
-            crop(lImage, 508, 656 + type * 222, 506, 284, function(data){
+            crop(lImage, 508, type ? 878 : 671, 506, 284, function(data){
                 $('#big2').attr('src', data);
             });
-            crop(lImage, 1024, 656 + type * 222, 100, 83, function(data){
+            crop(lImage, 1024, type ? 878 : 671, 100, 83, function(data){
                 $('#r21').attr('src', data);
             });
-            crop(lImage, 1024, 749 + type * 222, 100, 83, function(data){
+            crop(lImage, 1024, type ? 971 : 764, 100, 83, function(data){
                 $('#r22').attr('src', data);
             });
-            crop(lImage, 1024, 842 + type * 222, 100, 83, function(data){
+            crop(lImage, 1024, type ? 1064 : 857, 100, 83, function(data){
                 $('#r23').attr('src', data);
             });
             //AVATAR
