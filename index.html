@@ -18,34 +18,27 @@
     <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/header.css?v=quvm2wU5yG0p" rel="stylesheet" type="text/css" >
     <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/economy.css?v=PT5agEVgqmW0" rel="stylesheet" type="text/css">
     <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/economy_inventory.css?v=BqEUYX7HYmK2" rel="stylesheet" type="text/css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/linq.js/2.2.0.2/linq.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
 </head>
 <body>
 <script>
     var background = null;
     var aKey = '258A446529D3202628392EB73D0A2ADD';
     function crop(image, x, y, width, height, fn){
-        image = image || 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/41730/0f690ec6ad7ed19d9dea6f79188fd59cdb82fb21.jpg';
         x = x || 0;
         y = y || 0;
         width = width || 506;
         height = height || 506;
-
         var canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
-        //508, 271,
-        var context = canvas.getContext('2d');
-        var base_image = new Image();
-        base_image.setAttribute('crossOrigin', 'anonymous');
 
-        base_image.onload = function(){
-            context.drawImage(base_image, -x, -y);
-            console.log(canvas.toDataURL());
-            fn(canvas.toDataURL());
-        }
-        base_image.src = image;
+        var context = canvas.getContext('2d');
+        context.drawImage(document.getElementById('bgImgEl'), -x, -y);
+        fn(canvas.toDataURL());
+
     }
     function getImageBase64(image, fn){
         var canvas = document.createElement('canvas');
@@ -57,8 +50,7 @@
             canvas.width = img.width;
             canvas.height = img.height;
             ctx.drawImage(img, 0, 0);
-            //document.body.appendChild(canvas);
-            //fn(canvas.toDataURL());
+            $('#bgImgEl').attr('src', canvas.toDataURL());
             fn(canvas.toDataURL());
         }
 
@@ -79,71 +71,36 @@
             background = 'http://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/212200/72140546ab66eba298c1959b9fd4324cf4c0635f.jpg';
         }
         $('#bg1').css("background-image",  "url('" + background + "')");
+        $('#bg2').css("background-image",  "url('" + background + "')");
         getImageBase64(background, function(lImage){
             crop(lImage, 508, 271, 506, 284 + type * 222, function(data){
-                var img = new Image();
-                img.src = data;
-                img.onload = function(){
-                    $('#big1').attr('src', data);
-                };
+                $('#big1').attr('src', data);
             });
             crop(lImage, 1024, 271, 100, 83, function(data){
-                var img = new Image();
-                img.src = data;
-                img.onload = function(){
-                    $('#r11').attr('src', data);
-                };
+                $('#r11').attr('src', data);
             });
             crop(lImage, 1024, 364, 100, 83, function(data){
-                var img = new Image();
-                img.src = data;
-                img.onload = function(){
-                    $('#r12').attr('src', data);
-                };
+                $('#r12').attr('src', data);
             });
             crop(lImage, 1024, 457, 100, 83, function(data){
-                var img = new Image();
-                img.src = data;
-                img.onload = function(){
-                    $('#r13').attr('src', data);
-                };
+                $('#r13').attr('src', data);
             });
             //SECOND
             crop(lImage, 508, 656 + type * 222, 506, 284, function(data){
-                var img = new Image();
-                img.src = data;
-                img.onload = function(){
-                    $('#big2').attr('src', data);
-                };
+                $('#big2').attr('src', data);
             });
             crop(lImage, 1024, 656 + type * 222, 100, 83, function(data){
-                var img = new Image();
-                img.src = data;
-                img.onload = function(){
-                    $('#r21').attr('src', data);
-                };
+                $('#r21').attr('src', data);
             });
             crop(lImage, 1024, 749 + type * 222, 100, 83, function(data){
-                var img = new Image();
-                img.src = data;
-                img.onload = function(){
-                    $('#r22').attr('src', data);
-                };
+                $('#r22').attr('src', data);
             });
             crop(lImage, 1024, 842 + type * 222, 100, 83, function(data){
-                var img = new Image();
-                img.src = data;
-                img.onload = function(){
-                    $('#r23').attr('src', data);
-                };
+                $('#r23').attr('src', data);
             });
             //AVATAR
             crop(lImage, 499, 19, 184, 184, function(data){
-                var img = new Image();
-                img.src = data;
-                img.onload = function(){
-                    $('#avatar').attr('src', data);
-                };
+                $('#avatar').attr('src', data);
             });
         });
     }
@@ -305,7 +262,7 @@
 
 <div class="profile_background_holder_content">
     <div class="profile_background_overlay_content"></div>
-    <div class="profile_background_image_content " style="background-image: url(http://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/212200/72140546ab66eba298c1959b9fd4324cf4c0635f.jpg);">
+    <div class="profile_background_image_content" id="bg2">
     </div>
 </div>
 <div class="profile_content_inner">
@@ -1009,6 +966,7 @@ Level 5 Chivalry: Medieval Warfare Badge">
 </div>
 
 </div>
+<img id="bgImgEl" style="visibility: hidden; width:0;height:0">
 <!-- Yandex.Metrika counter --><script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter27350393 = new Ya.Metrika({ id:27350393, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/27350393" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 </body>
 </html>
