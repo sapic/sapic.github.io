@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        .content{
+            height: auto !important;
+            overflow: auto;
+        }
+    </style>
     <link href="http://steamcommunity-a.akamaihd.net/public/shared/css/motiva_sans.css?v=F3z3QpekjE2f" rel="stylesheet" type="text/css" >
     <link href="http://steamcommunity-a.akamaihd.net/public/shared/css/buttons.css?v=yJZZ0VrDIXl4" rel="stylesheet" type="text/css" >
     <link href="http://steamcommunity-a.akamaihd.net/public/shared/css/shared_global.css?v=Ww8mZkLgWAuY" rel="stylesheet" type="text/css" >
@@ -9,11 +15,15 @@
     <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/profilev2.css?v=j-nAk9zTjLKj" rel="stylesheet" type="text/css" >
     <link href="http://steamcommunity-a.akamaihd.net/public/shared/css/motiva_sans.css?v=F3z3QpekjE2f" rel="stylesheet" type="text/css" >
     <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/header.css?v=quvm2wU5yG0p" rel="stylesheet" type="text/css" >
+    <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/economy.css?v=PT5agEVgqmW0" rel="stylesheet" type="text/css">
+    <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/economy_inventory.css?v=BqEUYX7HYmK2" rel="stylesheet" type="text/css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/linq.js/2.2.0.2/linq.min.js"></script>
 </head>
 <body>
 <script>
-    var background = 'http://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/212200/72140546ab66eba298c1959b9fd4324cf4c0635f.jpg';
+    var background = null;
+    var aKey = '258A446529D3202628392EB73D0A2ADD';
     function crop(image, x, y, width, height, fn){
         image = image || 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/41730/0f690ec6ad7ed19d9dea6f79188fd59cdb82fb21.jpg';
         x = x || 0;
@@ -54,14 +64,16 @@
 
     }
     function reloadImages(type){
-        if(window.location.hash){
-            background = window.location.hash.slice(1);
-            if(background.indexOf('http') == -1){
-                background = "http://" + background;
+        if(window.location.hash && window.location.hash.indexOf('#login') == -1
+                && window.location.hash.indexOf('#logout') == -1){
+            var bg = window.location.hash.slice(1);
+            if(bg.indexOf('http') == -1){
+                bg = "http://" + bg;
             }
+            window.localStorage.setItem('bg', bg)
         }
-        else
-        {
+        background = window.localStorage.getItem('bg');
+        if(background == null){
             background = 'http://cdn.akamai.steamstatic.com/steamcommunity/public/images/items/212200/72140546ab66eba298c1959b9fd4324cf4c0635f.jpg';
         }
         $('#bg1').css("background-image",  "url('" + background + "')");
@@ -123,6 +135,7 @@
                     $('#r23').attr('src', data);
                 };
             });
+            //AVATAR
             crop(lImage, 499, 19, 184, 184, function(data){
                 var img = new Image();
                 img.src = data;
@@ -133,17 +146,47 @@
         });
     }
 
-    $(function () {
+    function createInventory(id){
+        $.ajax({url:'http://www.corsproxy.com/api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + aKey + '&steamids=' + id})//{url:'http://www.corsproxy.com/steamcommunity.com/profiles/' + id + '/inventory/json/753/6/'})
+                .done(function(data){
+                    $.ajax('http://www.corsproxy.com/' + data.response.players[0]['profileurl'].substr(7) + 'inventory/json/753/6/').done(function(data){
+                        var items = Enumerable.From(data.rgDescriptions)
+                                .Where(function(i){return i.Value.tags[2]['internal_name'] == 'item_class_3'})
+                                .Select(function(i){return i.Value}).ToArray();
+                        items.forEach(function(back){
+                            var itemHolder = $("<div>", {class: "itemHolder"});
+                            var item = $("<div>", {class: "item app753 context6 activeInfo"});
+                            var bgUrl = $("<a>", {href: "index.html#" + back.actions[0].link, class: "inventory_item_link"});
+                            var img = $("<img>", {src: "http://steamcommunity-a.akamaihd.net/economy/image/" + back.icon_url + "/96fx96f"});
+
+                            $(item).append(bgUrl).append(img);
+                            $(itemHolder).append(item);
+                            $('#cardsList').append(itemHolder);
+                        });
+                    });
+                });
+    }
+
+    function loginFunc(){
         if(window.location.hash.indexOf('#login') !== -1){
             var userId = window.location.hash.substr(window.location.hash.indexOf("openid.claimed_id") + 66, 17)
             window.localStorage.setItem('SteamId', userId);
-            window.location.href = 'http://sapic.github.io';
+            window.location.href = window.location.href.split('#')[0];
         }
+        if(window.location.hash.indexOf('#logout') !== -1){
+            window.localStorage.removeItem('SteamId');
+            window.location.href = window.location.href.split('#')[0];
+        }
+    }
+
+    $(function () {
+        loginFunc();
 
         var userId = null;
         userId = window.localStorage.getItem('SteamId');
         if(userId !== null){
-            console.log('WE\'VE GOT AUTHORIZATION!');
+            $('#badgesPlace').append('<a href="#logout">Logout</a>');
+            createInventory(userId);
         }
         else
         {
@@ -157,17 +200,20 @@
                 }
         );
         reloadImages(1);
-        //$('#bg1').css("background-image",  "url('" + background + "')");
         $(window).bind('hashchange', function() {
-            console.log('hash!!')
+            loginFunc();
             var val = $('input[type="radio"]:checked').val() == 'big' ? 1 : 0;
             reloadImages(val);
-            //do whatever you need with the hash
         });
     });
 </script>
-<div class="no_header profile_page has_profile_background" id="bg1">
+<div id="global_header">
+    <div class="content" id="cardsList">
 
+    </div>
+</div>
+<div class="body">
+<div class="no_header profile_page has_profile_background" id="bg1">
 <div class="profile_header_bg">
 
 
@@ -958,7 +1004,9 @@ Level 5 Chivalry: Medieval Warfare Badge">
 <div style="clear: both;"></div>
 </div>
 </div>
+</div>
 
 </div>
+<!-- Yandex.Metrika counter --><script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter27350393 = new Ya.Metrika({ id:27350393, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/27350393" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 </body>
 </html>
