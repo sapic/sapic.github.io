@@ -35,8 +35,10 @@
         canvas.height = height;
 
         var context = canvas.getContext('2d');
-        context.drawImage(document.getElementById('bgImgEl'), -x, -y);
-        fn(canvas.toDataURL());
+        $('#bgImgEl').load(function(){
+            context.drawImage(document.getElementById('bgImgEl'), -x, -y);
+            fn(canvas.toDataURL());
+        });
 
     }
     function getImageBase64(image, fn){
