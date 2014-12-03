@@ -4,6 +4,7 @@
     <style>
         .content{
             height: auto !important;
+            max-height: 330px;
             overflow: auto;
         }
     </style>
@@ -151,7 +152,7 @@
                 .done(function(data){
                     $.ajax('http://www.corsproxy.com/' + data.response.players[0]['profileurl'].substr(7) + 'inventory/json/753/6/').done(function(data){
                         var items = Enumerable.From(data.rgDescriptions)
-                                .Where(function(i){return i.Value.tags[2]['internal_name'] == 'item_class_3'})
+                                .Where(function(i){return i.Value.tags[i.Value.tags-1]['internal_name'] == 'item_class_3'})
                                 .Select(function(i){return i.Value}).ToArray();
                         items.forEach(function(back){
                             var itemHolder = $("<div>", {class: "itemHolder"});
