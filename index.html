@@ -73,7 +73,6 @@
     <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/economy_inventory.css?v=BqEUYX7HYmK2" rel="stylesheet" type="text/css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/linq.js/2.2.0.2/linq.min.js"></script>
-    <script src="//cdn.jsdelivr.net/jquery.xdomainajax/0.11/jquery.xdomainajax.js"></script>
 </head>
 <body>
 <script>
@@ -163,7 +162,7 @@
 
     function createInventory(id){
         $('#cardsList').append('<div style="margin-top: 5px;"><span>Filter: <input type="text" id="filterIn"></span><span style="float:right">Custom Image URL: <input type="text" id="urlIn"><button class="button small gray" id="goUrl">Go!</button></span>');
-        $.ajax({url:'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + aKey + '&steamids=' + id})
+        $.ajax({url:'http://www.corsproxy.com/api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + aKey + '&steamids=' + id})
                 .done(function(data){
                     $.ajax('http://www.corsproxy.com/' + data.response.players[0]['profileurl'].substr(7) + 'inventory/json/753/6/').done(function(data){
                         var items = Enumerable.From(data.rgDescriptions)
