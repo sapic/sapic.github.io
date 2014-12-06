@@ -128,29 +128,30 @@
         $('#bg1').css("background-image",  "url('" + background + "')");
         $('#bg2').css("background-image",  "url('" + background + "')");
         getImageBase64(background, function(lImage){
-            crop(lImage, 508, 271, 506, 284 + type * 222, function(data){
+            var ImageType = $('#bgImgEl').width() > 2000 ? 1 : 0;
+            crop(lImage, 506 + 140 * ImageType, 271, 506, 284 + type * 222, function(data){
                 $('#big1').attr('src', data);
             });
-            crop(lImage, 1024, 271, 100, 83, function(data){
+            crop(lImage, 1024 + 140 * ImageType, 271, 100, 83, function(data){
                 $('#r11').attr('src', data);
             });
-            crop(lImage, 1024, 364, 100, 83, function(data){
+            crop(lImage, 1024 + 140 * ImageType, 364, 100, 83, function(data){
                 $('#r12').attr('src', data);
             });
-            crop(lImage, 1024, 457, 100, 83, function(data){
+            crop(lImage, 1024 + 140 * ImageType, 457, 100, 83, function(data){
                 $('#r13').attr('src', data);
             });
             //SECOND
-            crop(lImage, 508, type ? 878 : 671, 506, 284, function(data){
+            crop(lImage, 506 + 140 * ImageType, type ? 878 : 671, 506, 284, function(data){
                 $('#big2').attr('src', data);
             });
-            crop(lImage, 1024, type ? 878 : 671, 100, 83, function(data){
+            crop(lImage, 1024 + 140 * ImageType, type ? 878 : 671, 100, 83, function(data){
                 $('#r21').attr('src', data);
             });
-            crop(lImage, 1024, type ? 971 : 764, 100, 83, function(data){
+            crop(lImage, 1024 + 140 * ImageType, type ? 971 : 764, 100, 83, function(data){
                 $('#r22').attr('src', data);
             });
-            crop(lImage, 1024, type ? 1064 : 857, 100, 83, function(data){
+            crop(lImage, 1024 + 140 * ImageType, type ? 1064 : 857, 100, 83, function(data){
                 $('#r23').attr('src', data);
             });
             //AVATAR
@@ -1037,7 +1038,7 @@ Level 5 Chivalry: Medieval Warfare Badge">
 </div>
 
 </div>
-<img id="bgImgEl" style="visibility: hidden; width:0;height:0">
+<img id="bgImgEl" style="display:none">
 <!-- Yandex.Metrika counter --><script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter27350393 = new Ya.Metrika({ id:27350393, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/27350393" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
 </body>
 </html>
