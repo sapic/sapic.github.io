@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
+    <title>Steam AP Background Cropper</title>
+    <meta name="description" content="Steam Profile Background Crop Tool"/>
+    <meta name="keywords" content="steam, profile, crop, steam profile, background crop, background crop tool" />
+    <meta property="og:title" content="Steam Background Crop Tool" />
+    <meta property="og:description" content="This tool will help you crop images for your Steam profile" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <style>
         .content{
             height: auto !important;
@@ -71,8 +78,10 @@
     <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/header.css?v=quvm2wU5yG0p" rel="stylesheet" type="text/css" >
     <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/economy.css?v=PT5agEVgqmW0" rel="stylesheet" type="text/css">
     <link href="http://steamcommunity-a.akamaihd.net/public/css/skin_1/economy_inventory.css?v=BqEUYX7HYmK2" rel="stylesheet" type="text/css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="social-likes_flat.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/linq.js/2.2.0.2/linq.min.js"></script>
+    <script src="social-likes.min.js"></script>
 </head>
 <body>
 <script>
@@ -163,9 +172,9 @@
 
     function createInventory(id){
         $('#cardsList').append('<div style="margin-top: 5px;"><span>Filter: <input type="text" id="filterIn"></span><span style="float:right">Custom Image URL: <input type="text" id="urlIn"><button class="button small gray" id="goUrl">Go!</button></span>');
-        $.ajax({url:'http://www.corsproxy.com/api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + aKey + '&steamids=' + id})
+        $.ajax('http://immortals.su/proxy.php?url=api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + aKey + '&steamids=' + id)
                 .done(function(data){
-                    $.ajax('http://www.corsproxy.com/' + data.response.players[0]['profileurl'].substr(7) + 'inventory/json/753/6/').done(function(data){
+                    $.ajax('http://immortals.su/proxy.php?url=' + data.response.players[0]['profileurl'].substr(7) + 'inventory/json/753/6/').done(function(data){
                         var items = Enumerable.From(data.rgDescriptions)
                                 .Where(function(i){return i.Value.tags[i.Value.tags.length-1]['internal_name'] == 'item_class_3'})
                                 .Select(function(i){return i.Value}).ToArray();
@@ -182,6 +191,7 @@
                     });
                 });
     }
+
 
     function loginFunc(){
         if(window.location.hash.indexOf('#login') !== -1){
@@ -238,9 +248,9 @@
         });
     });
 </script>
+<h1 class="entry-title" style="display:none">Crop background for your Steam profile!</h1>
 <div id="global_header">
     <div class="content" id="cardsList">
-
     </div>
 </div>
 <div class="body">
@@ -314,12 +324,13 @@
                         <img class="profile_flag" src="http://steamcommunity-a.akamaihd.net/public/images/countryflags/ca.gif">
                         Canada						</div>
                     <div class="profile_summary">
-                        "I'm not suggesting to go kill all the stupid people… I'm just suggesting to remove all the warning labels and let the problem sort itself out."
-                        <br>
-                        <br><a class="bb_link" target="_blank" href="http://steamcommunity.com/tradeoffer/new/?partner=68667764&amp;token=JJe3A_Og">Trade Offers</a> If you want to trade please use this link instead of adding me, it is a lot faster for both of us.
-                        <br>
-                        <br>Monthly rainbows thus far
-                        <br><span class="bb_spoiler"><span><a class="bb_link" target="_blank" href="https://steamcommunity.com/linkfilter/?url=http://tf2r.com/kziihch.html">[1]</a><span class="bb_link_host">[tf2r.com]</span><a class="bb_link" target="_blank" href="https://steamcommunity.com/linkfilter/?url=http://tf2r.com/ktm69ps.html">[2]</a><span class="bb_link_host">[tf2r.com]</span><a class="bb_link" target="_blank" href="https://steamcommunity.com/linkfilter/?url=http://tf2r.com/kg3begb.html">[3]</a><span class="bb_link_host">[tf2r.com]</span><a class="bb_link" target="_blank" href="https://steamcommunity.com/linkfilter/?url=http://tf2r.com/krb21ya.html">[4]</a><span class="bb_link_host">[tf2r.com]</span><a class="bb_link" target="_blank" href="https://steamcommunity.com/linkfilter/?url=http://tf2r.com/krtqm8c.html">[5]</a><span class="bb_link_host">[tf2r.com]</span></span></span>						</div>
+                        Share Us:
+                        <div class="social-likes" data-url="http://sapic.github.io/">
+                            <div class="facebook" title="Share link on Facebook">Facebook</div>
+                            <div class="twitter" title="Share link on Twitter">Twitter</div>
+                            <div class="plusone" title="Share link on Google+">Google+</div>
+                        </div>
+                    </div>
                     <div class="profile_summary_footer">
                         <span class="whiteLink">View more info</span>
                     </div>
