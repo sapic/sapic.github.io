@@ -8,15 +8,15 @@
     <!-- for Facebook -->
     <meta property="og:title" content="Steam Background Crop Tool" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="http://cloud-4.steamusercontent.com/ugc/549769266404435048/2E966B121EC6FD9063D4AC2CFBF9FE48D923189A/160x160.resizedimage" />
+    <meta property="og:image" content="http://i.imgur.com/Q8kS6es.png" />
     <meta property="og:url" content="http://sapic.github.io/" />
-    <meta property="og:description" content="This tool will help you crop images for your Steam profile." />
+    <meta property="og:description" content="This tool will help you create awesome steam profile!" />
 
     <!-- for Twitter -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Steam Background Crop Tool" />
-    <meta name="twitter:description" content="This tool will help you crop images for your Steam profile." />
-    <meta name="twitter:image" content="http://cloud-4.steamusercontent.com/ugc/549769266404435048/2E966B121EC6FD9063D4AC2CFBF9FE48D923189A/160x160.resizedimage" />
+    <meta name="twitter:description" content="This tool will help you create awesome steam profile!" />
+    <meta name="twitter:image" content="http://i.imgur.com/Q8kS6es.png" />
     <meta name="twitter:url" content="http://sapic.github.io/" />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -185,9 +185,9 @@
 
     function createInventory(id){
         $('#cardsList').append('<div style="margin-top: 5px;"><span>Filter: <input type="text" id="filterIn"></span><span style="float:right">Custom Image URL: <input type="text" id="urlIn"><button class="button small gray" id="goUrl">Go!</button></span>');
-        $.ajax('http://immortals.su/proxy.php?url=api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + aKey + '&steamids=' + id)
+        $.ajax('http://getmy.hol.es/proxy.php?url=api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + aKey + '&steamids=' + id)
                 .done(function(data){
-                    $.ajax('http://immortals.su/proxy.php?url=' + data.response.players[0]['profileurl'].substr(7) + 'inventory/json/753/6/').done(function(data){
+                    $.ajax('http://getmy.hol.es/proxy.php?url=' + data.response.players[0]['profileurl'].substr(7) + 'inventory/json/753/6/').done(function(data){
                         var items = Enumerable.From(data.rgDescriptions)
                                 .Where(function(i){return i.Value.tags[i.Value.tags.length-1]['internal_name'] == 'item_class_3'})
                                 .Select(function(i){return i.Value}).ToArray();
@@ -468,7 +468,7 @@
                 <div class="showcase_content_bg">
                     <div class="workshop_showcase_item showcase_slot ">
                         <a href="http://steamcommunity.com/sharedfiles/filedetails/?id=299701202">
-                            <img class="workshop_showcase_item_image" src="http://cloud-4.steamusercontent.com/ugc/549769266404435048/2E966B121EC6FD9063D4AC2CFBF9FE48D923189A/160x160.resizedimage">
+                            <img class="workshop_showcase_item_image" src="http://i.imgur.com/Q8kS6es.png">
                         </a>
                         <div class="workshop_showcase_item_details">
                             <div class="showcase_item_detail_title"><a class="whiteLink" href="http://steamcommunity.com/sharedfiles/filedetails/?id=299701202">Create Steam Background showcases</a></div>
@@ -478,7 +478,7 @@
                             <div class="guide_showcase_appinfo">
                                 <div class="workshop_showcase_stars">
                                     <img src="http://steamcommunity-a.akamaihd.net/public/images/sharedfiles/5-star.png?v=1">
-                                    188 ratings																	</div>
+                                    2500+ ratings!															</div>
                                 <div class="workshop_showcase_app">
                                     <a href="http://steamcommunity.com/workshop/browse/?appid=440"><img src="http://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/440/e3f595a92552da3d664ad00277fad2107345f743.jpg"></a> <a class="whiteLink" href="http://steamcommunity.com/workshop/browse/?appid=440">Team Fortress 2</a>
                                 </div>
