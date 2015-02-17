@@ -83,6 +83,60 @@
             overflow: hidden;
         }
 
+        .bn {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA7CAYAAADYW8woAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAaBJREFUeNrsmt9twjAQh2MnBCpVXaBb0AlgCvrWzfrYLbpB5+gCVf8QiGuLn9HVSkJ468N30oFzvjufvxDbEnHrza6v/oqrkLN44MwHBJwJQMCZAAScK9YgBEAAAhCAAAQgAAEIARCAAAQgAAEIQAACEAIgAAEIQAACEIAAhADoSmmivkcNuq6jHtVeRO2q03/3Qe2u8LM+jfycdF+Mld8BCLoxrWze+OZ8KdfBxCW17zG1imkV/23svYltjL0yc/Hyc8UPJRTjNCnBfWq9vb6Eh+2jN5MMyVYSjT5Ovm6ov/S7ZLf5hvKM9J3rK+Nz7jSX2O5ldybO6+bWmmso4FnfhQsh8ByxBgEIQAD6r4Dy6p++x3aSIfuY71D/Jd+5MlXjVJ1T9ed+q8anduvN7ll7f2/OG422Qq8zRdrqPtT/qXPFV9Sl/O1Wudf1Uu3abKnZN8XfKPdKcTlfZ+qw56xceK4v1fajtgUQNF5lxr7VOLnvoDy2Nm/OgEflvUsfTzxIrEEAAhCAAAQgAAEIARCAAAQgAAEIQABCADRLfgUYAEPyhJ46s/ssAAAAAElFTkSuQmCC");
+        }
+        .nb {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA7CAYAAADYW8woAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAZVJREFUeNrsmltOwzAQRWMnLVDxw1bYAV/dAptlN6wAIVFC2sGprsXIxEmokPpzRhq5GduTycnjWlbD49OzNVjVIggABCAAAQhAAAIQgDAAAQhAAAIQgAAEIOzHuuQvyd+SD8lbxcf2lDwkP8qjxh8VPyR/d/2N68tmynujfIO7KSbfJP9SPB9/Jr/T8UHn/UjeK38sattqTtDvvEuax+Z84/yd+u/V36m21tVnauPYuXcXGCYgmuLl1mxw/WW8to1bm3OJhQKErRy7VKevMXQOzlzhtjK2dPH/uf9tf8h7af3GN4iPNIAAdG2Z30lmraJawUlqln8rpDoq/ksFXDulGlZRzpp6zinPGhWbm+/H5CXOGdCr9N8/Vbnokys2uon5JL3awQGPLn6rOb3WJ31xHnO5OuXJ66JGc/IN6X3hExe6dfmCcvl1VusUeyMPxZimGHeW+QdeJL5BAAIQgAAEIAABCAMQgAAEIAABCEAAwgAEIAABCEAAAhCAAIQBCEAAupLxF7w5ODxBC3AAtABntG8BBgB4g3QNV7k40gAAAABJRU5ErkJggg==");
+        }
+        .nn {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA7CAYAAADYW8woAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQxJREFUeNrs2UEKwjAQheEmrYriabyBK6/gZb2UCFZtHafwgiEYFHeFf2CozSQxfpYukm63P1pDVCNCABBAAAEEEEAAAUQABBBAAAEEEEAAEe/oPE+eZ8/Bs1X7dH16Bs9RGdV/VHvvecnqTVZLYZp3pfmG7E8x5cLzofZ0f/Nc677X914975o/FmtbakzQ57RLmvqm+abxG9W3qndaW5utz3SNU/GQ/cDwAdHUXm7Nhqxette2cWtj/olQQNiPfb+tM19jCGZsSfMOAggggACaaQROVnmCAAIIIIAAAgggAiCAAAIIIIAAAogA6OfgZJWT1Wqdk1XeQQABBBBAAAFEAAQQQAABNM94CTAAd7xl1kREjFUAAAAASUVORK5CYII=");
+        }
+
+        .types-selector input{
+            margin:0;padding:0;
+            -webkit-appearance:none;
+            -moz-appearance:none;
+            appearance:none;
+        }
+        .types-selector input:active +.types{opacity: .9;}
+        .types-selector input:checked +.types{
+            -webkit-filter: none;
+            -moz-filter: none;
+            filter: none;
+        }
+
+        .types{
+            cursor:pointer;
+            background-size:contain;
+            background-repeat:no-repeat;
+            display:inline-block;
+            width:72px;height:59px;
+            -webkit-transition: all 100ms ease-in;
+            -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+            -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+            -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+            filter: brightness(1.8) grayscale(1) opacity(.7);
+        }
+        .types:hover{
+            -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
+        }
+
+        .arrow {
+            margin: 0 0 0 10px;
+        }
+
+        .gray_bevel {
+            margin-top: 4px;
+        }
+
+        .dynInput {
+            width: 340px;
+        }
+
     </style>
     <link href="http://steamcommunity-a.akamaihd.net/public/shared/css/motiva_sans.css?v=F3z3QpekjE2f" rel="stylesheet" type="text/css" >
     <link href="http://steamcommunity-a.akamaihd.net/public/shared/css/buttons.css?v=yJZZ0VrDIXl4" rel="stylesheet" type="text/css" >
@@ -168,6 +222,7 @@
             var h2 = $('#hBig2').height() - 3;
             var rOffset1 = $('#hBig1').offset().top - $('.profile_header').offset().top + 1;
             var rOffset2 = $('#hBig2').offset().top - $('.profile_header').offset().top + 1;
+            console.log(rOffset2);
             crop(lImage, 508 + 140 * ImageType, rOffset1, 506, h1, function(data){
                 $('#big1').attr('src', data);
             });
@@ -218,6 +273,18 @@
                             $('#cardsList').append(itemHolder);
                         });
                     });
+                    $.ajax('http://getmy.hol.es/proxy.php?url=' + data.response.players[0]['profileurl'].substr(7)).always(function(data){
+                        if(data.status == 200){
+                            $(data.responseText).find('.profile_customization').each(function(){
+                                console.log(this);
+                                $('.profile_customization_area').append(this);
+                            });
+                        }
+                        $('.profile_customization_header').each(function(){
+                            $(this).append('<span style="float: right" class="arrow down" onclick="elemDown(this);">Down</span>' +
+                                    '<span style="float: right" class="arrow up" onclick="elemUp(this);">Up</span>');
+                        });;
+                    });
                 });
     }
 
@@ -238,7 +305,7 @@
         var x = $(elem).prev('.profile_customization');
         $(x).before(elem);
         reloadImages();
-    };
+    }
     function elemDown(elem){
         elem = $(elem).parent().parent();
         var x = $(elem).next('.profile_customization');
@@ -262,14 +329,25 @@
 
         $('input:radio').change(
                 function () {
-                    var val = $('input[type="radio"]:checked').val() == 'big' ? 1 : 0;
+                    console.log($('input[type="radio"]:checked').val());
+                    switch ($('input[type="radio"]:checked').val()){
+                        case 'nn':
+                            $('#hBig1').css('height', 287);
+                            $('#hBig2').css('height', 287);
+                            break;
+                        case 'nb':
+                            $('#hBig1').css('height', 287);
+                            $('#hBig2').css('height', 509);
+                            break;
+                        case 'bn':
+                            $('#hBig1').css('height', 509);
+                            $('#hBig2').css('height', 287);
+                            break;
+                    }
                     reloadImages();
                 }
         );
-        $('.profile_customization_header').each(function(){
-            $(this).append('<span style="float: right" onclick="elemDown(this);">Down</span>' +
-                        '<span style="float: right" onclick="elemUp(this);">Up</span>');
-        });;
+
 
         reloadImages();
 
@@ -308,7 +386,7 @@
                 .on('resizeend', function(){
                     reloadImages();
                 });
-        $(window).on({
+        /*$(window).on({
             'mousewheel': function(e) {
                 var y = window.pageYOffset;
                 var up = e.originalEvent.wheelDeltaY > 0;
@@ -329,7 +407,7 @@
                     });
                 }
             }
-        });
+        });*/
     });
 </script>
 <h1 class="entry-title" style="display:none">Crop background for your Steam profile!</h1>
@@ -361,10 +439,26 @@
                     </a>
                     <div class="profile_header_badge">
                         <div class="favorite_badge" id="badgesPlace">
-                            First: <input type="range" min="284" max="506"> 506px
-                            <br>
-                            Second: <input type="range" min="284" max="506"> 506px
-                            <br>
+                            <!--<table>
+                                <tr>
+                                    <td><input type="radio"></td>
+                                    <td><input type="radio"></td>
+                                    <td><input type="radio"></td>
+                                </tr>
+                                <tr>
+                                    <td>Big+Normal</td>
+                                    <td>Normal+Normal</td>
+                                    <td>Normal+Big</td>
+                                </tr>
+                            </table>-->
+                            <div class="types-selector">
+                                <input checked="checked" id="bn" type="radio" name="Type" value="bn" />
+                                <label class="types bn" for="bn"></label>
+                                <input id="nn" type="radio" name="Type" value="nn" />
+                                <label class="types nn" for="nn"></label>
+                                <input id="nb" type="radio" name="Type" value="nb" />
+                                <label class="types nb" for="nb"></label>
+                            </div>
                         </div>
                     </div>
                     <div class="profile_header_actions">
@@ -401,7 +495,15 @@
                     <div class="header_real_name ellipsis">
                         &lt; Does not represent gender															&nbsp;
                         <img class="profile_flag" src="http://steamcommunity-a.akamaihd.net/public/images/countryflags/ca.gif">
-                        Canada						</div>
+                        Canada
+                        <br>
+                        <div class="gray_bevel for_text_input">
+                            <input class="dynInput" type="text" name="real_name" id="real_name" size="30" placeholder="You can paste custom image URL here...">
+                        </div>
+                        <a class="btn_profile_action btn_medium" href="javascript:AddFriend()">
+                            <span>Magick!</span>
+                        </a>
+                    </div>
                     <div class="profile_summary">
                         Share Us:
                         <div class="social-likes" data-url="http://sapic.github.io/" data-title="Steam AP Background Cropper">
