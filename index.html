@@ -184,7 +184,7 @@
     }
 
     function createInventory(id){
-        $('#cardsList').append('<div style="margin-top: 5px;"><span>Filter: <input type="text" id="filterIn"></span><span style="float:right">Custom Image URL: <input type="text" id="urlIn"><button class="button small gray" id="goUrl">Go!</button></span>');
+        //$('#cardsList').append('<div style="margin-top: 5px;"><span>Filter: <input type="text" id="filterIn"></span><span style="float:right">Custom Image URL: <input type="text" id="urlIn"><button class="button small gray" id="goUrl">Go!</button></span>');
         $.ajax('http://getmy.hol.es/proxy.php?url=api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + aKey + '&steamids=' + id)
                 .done(function(data){
                     $.ajax('http://getmy.hol.es/proxy.php?url=' + data.response.players[0]['profileurl'].substr(7) + 'inventory/json/753/6/').done(function(data){
@@ -286,6 +286,7 @@
 <h1 class="entry-title" style="display:none">Crop background for your Steam profile!</h1>
 <div id="global_header">
     <div class="content" id="cardsList">
+        <div style="margin-top: 5px;"><span>Filter: <input type="text" id="filterIn"></span><span style="float:right">Custom Image URL: <input type="text" id="urlIn"><button class="button small gray" id="goUrl">Go!</button></span>'
     </div>
 </div>
 <div class="body">
