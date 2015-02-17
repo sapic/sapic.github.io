@@ -166,42 +166,41 @@
             var ImageType = $('#bgImgEl').width() > 2000 ? 1 : 0;
             var h1 = $('#hBig1').height() - 3;
             var h2 = $('#hBig2').height() - 3;
-            var cSize = $('#cSize').height();
-            crop(lImage, 506 + 140 * ImageType, 271, 506, h1, function(data){
+            var rOffset1 = $('#hBig1').offset().top - $('.profile_header').offset().top + 1;
+            var rOffset2 = $('#hBig2').offset().top - $('.profile_header').offset().top + 1;
+            crop(lImage, 508 + 140 * ImageType, rOffset1, 506, h1, function(data){
                 $('#big1').attr('src', data);
             });
-            crop(lImage, 1024 + 140 * ImageType, 271, 100, 80, function(data){
+            crop(lImage, 1022 + 140 * ImageType, rOffset1, 100, 80, function(data){
                 $('#r11').attr('src', data);
             });
-            crop(lImage, 1024 + 140 * ImageType, 364, 100, 80, function(data){
+            crop(lImage, 1022 + 140 * ImageType, rOffset1 + 93, 100, 80, function(data){
                 $('#r12').attr('src', data);
             });
-            crop(lImage, 1024 + 140 * ImageType, 457, 100, 80, function(data){
+            crop(lImage, 1022 + 140 * ImageType, rOffset1 + 186, 100, 80, function(data){
                 $('#r13').attr('src', data);
             });
             //SECOND
-            crop(lImage, 506 + 140 * ImageType, cSize + 294, 506, h2, function(data){
+            crop(lImage, 508 + 140 * ImageType, rOffset2, 506, h2, function(data){
                 $('#big2').attr('src', data);
             });
-            crop(lImage, 1024 + 140 * ImageType, cSize + 294, 100, 80, function(data){
+            crop(lImage, 1022 + 140 * ImageType, rOffset2, 100, 80, function(data){
                 $('#r21').attr('src', data);
             });
-            crop(lImage, 1024 + 140 * ImageType, cSize + 387, 100, 80, function(data){
+            crop(lImage, 1022 + 140 * ImageType, rOffset2 + 93, 100, 80, function(data){
                 $('#r22').attr('src', data);
             });
-            crop(lImage, 1024 + 140 * ImageType, cSize + 480, 100, 80, function(data){
+            crop(lImage, 1022 + 140 * ImageType, rOffset2 + 186, 100, 80, function(data){
                 $('#r23').attr('src', data);
             });
             //AVATAR
             crop(lImage, 499 + 140 * ImageType, 19, 184, 184, function(data){
-                console.log(data);
                 $('#avatar').attr('src', data);
             });
         });
     }
 
     function createInventory(id){
-        $('#cardsList').append('<div style="margin-top: 5px;"><span>Filter: <input type="text" id="filterIn"></span><span style="float:right">Custom Image URL: <input type="text" id="urlIn"><button class="button small gray" id="goUrl">Go!</button></span>');
         $.ajax('http://getmy.hol.es/proxy.php?url=api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + aKey + '&steamids=' + id)
                 .done(function(data){
                     $.ajax('http://getmy.hol.es/proxy.php?url=' + data.response.players[0]['profileurl'].substr(7) + 'inventory/json/753/6/').done(function(data){
@@ -234,6 +233,18 @@
             window.location.href = window.location.href.split('#')[0];
         }
     }
+    function elemUp(elem){
+        elem = $(elem).parent().parent();
+        var x = $(elem).prev('.profile_customization');
+        $(x).before(elem);
+        reloadImages();
+    };
+    function elemDown(elem){
+        elem = $(elem).parent().parent();
+        var x = $(elem).next('.profile_customization');
+        $(x).after(elem);
+        reloadImages();
+    };
 
     $(function () {
         loginFunc();
@@ -241,21 +252,27 @@
         var userId = null;
         userId = window.localStorage.getItem('SteamId');
         if(userId !== null){
-            $('#badgesPlace').append('<a href="#logout">Logout</a>');
+            $('#steamAuth').append('<a href="#logout"><img src="steam_logout.png"></a>');
             createInventory(userId);
         }
         else
         {
-            $('#badgesPlace').append('<a href="https://steamcommunity.com/openid/login?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=checkid_setup&openid.return_to=http%3A%2F%2FSapic.GitHub.Io%2Findex.html%23login&openid.realm=http%3A%2F%2FSapic.GitHub.Io&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select" class="name"><img src="http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_small.png"></a>');
+            $('#steamAuth').append('<a href="https://steamcommunity.com/openid/login?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=checkid_setup&openid.return_to=http%3A%2F%2FSapic.GitHub.Io%2Findex.html%23login&openid.realm=http%3A%2F%2FSapic.GitHub.Io&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select" class="name"><img src="http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_small.png"></a>');
         }
 
         $('input:radio').change(
                 function () {
                     var val = $('input[type="radio"]:checked').val() == 'big' ? 1 : 0;
-                    reloadImages(val);
+                    reloadImages();
                 }
         );
+        $('.profile_customization_header').each(function(){
+            $(this).append('<span style="float: right" onclick="elemDown(this);">Down</span>' +
+                        '<span style="float: right" onclick="elemUp(this);">Up</span>');
+        });;
+
         reloadImages();
+
         $(window).bind('hashchange', function() {
             loginFunc();
             //var val = $('input[type="radio"]:checked').val() == 'big' ? 1 : 0;
@@ -276,6 +293,7 @@
             }
             window.location.href = "forscience.html#" + url;
         });
+
         interact('.resizable')
                 .resizable({axis: 'y' })
                 .on('resizemove', function (event) {
@@ -317,6 +335,10 @@
 <h1 class="entry-title" style="display:none">Crop background for your Steam profile!</h1>
 <div id="global_header">
     <div class="content" id="cardsList">
+        <div style="margin-top: 5px;">
+            <span>Filter: <input type="text" id="filterIn"></span>
+            <span style="float:right"><div id="steamAuth"></div></span>
+        </div>
     </div>
 </div>
 <div class="body">
@@ -411,7 +433,9 @@
 <div class="profile_customization_area">
 
     <div class="profile_customization" id="cSize">
-        <div class="profile_customization_header">Artwork Showcase</div>
+        <div class="profile_customization_header">Artwork Showcase
+
+        </div>
 
         <div class="profile_customization_block">
             <div class="screenshot_showcase">
@@ -452,7 +476,7 @@
         </div>
     </div>
     <div class="profile_customization">
-        <div class="profile_customization_header">Screenshot Showcase</div>
+        <div class="profile_customization_header">Screenshot Showcase        </div>
 
         <div class="profile_customization_block">
             <div class="screenshot_showcase">
